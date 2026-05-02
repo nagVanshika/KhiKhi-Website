@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Khi Khi</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+        .tab-btn { opacity: 0.5; cursor: pointer; transition: 0.3s; }
+        .tab-btn.active { opacity: 1; border-bottom: 2px solid var(--primary-color); }
+        input, select, textarea { width: 100%; padding: 1rem 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); background: var(--surface-accent); color: white; margin-bottom: 1.5rem; outline: none; }
+        input:focus { border-color: var(--primary-color); }
+        label { display: block; margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">KHI KHI</a>
+                <ul class="nav-links">
+                    <li><a href="creators.html">Creators</a></li>
+                    <li><a href="agencies.html">Agencies</a></li>
+                    <li><a href="brands.html">Brands</a></li>
+                    <li><a href="promise.html">The Promise</a></li>
+                </ul>
+                <div class="nav-cta">
+                    <a href="index.html" class="btn btn-outline">Back Home</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container center">
+                <div class="reveal" style="width: 100%; max-width: 600px; background: var(--surface-color); padding: 4rem; border-radius: 32px; border: 1px solid var(--border-color);">
+                    <h1 style="font-size: 2rem; margin-bottom: 3rem; text-align: center;">Join the first batch.</h1>
+                    
+                    <div style="display: flex; justify-content: center; gap: 3rem; margin-bottom: 4rem; border-bottom: 1px solid var(--border-color);">
+                        <div class="tab-btn active" onclick="showForm('creator')">I'm a creator</div>
+                        <div class="tab-btn" onclick="showForm('agency')">I'm an agency</div>
+                        <div class="tab-btn" onclick="showForm('brand')">I'm a brand</div>
+                    </div>
+
+                    <!-- Creator Form -->
+                    <div id="creator-form" class="form-section active">
+                        <form onsubmit="handleSubmit(event, 'We\'re onboarding in batches. You\'ll hear from us within 72 hours.')">
+                            <label>Instagram Handle</label>
+                            <input type="text" placeholder="@yourhandle" required>
+                            <label>Niche</label>
+                            <input type="text" placeholder="Fashion, Tech, Lifestyle, etc." required>
+                            <label>City</label>
+                            <input type="text" placeholder="e.g. Kochi, Delhi, Pune" required>
+                            <label>Email</label>
+                            <input type="email" placeholder="yourname@email.com" required>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Connect Instagram</button>
+                        </form>
+                    </div>
+
+                    <!-- Agency Form -->
+                    <div id="agency-form" class="form-section">
+                        <form onsubmit="handleSubmit(event, 'We\'ll reach out for a 20-minute onboarding call.')">
+                            <label>Agency Name</label>
+                            <input type="text" placeholder="Agency Name" required>
+                            <label>How many creators do you manage?</label>
+                            <select required>
+                                <option value="">Select an option</option>
+                                <option value="1-10">1-10</option>
+                                <option value="10-50">10-50</option>
+                                <option value="50+">50+</option>
+                            </select>
+                            <label>Email</label>
+                            <input type="email" placeholder="founder@agency.com" required>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Register Agency</button>
+                        </form>
+                    </div>
+
+                    <!-- Brand Form -->
+                    <div id="brand-form" class="form-section">
+                        <form onsubmit="handleSubmit(event, 'We\'ll set up a demo so you can see your first real campaign data.')">
+                            <label>Company Name</label>
+                            <input type="text" placeholder="Brand Name" required>
+                            <label>Industry</label>
+                            <input type="text" placeholder="e.g. D2C, Enterprise, Tech" required>
+                            <label>Monthly Influencer Budget</label>
+                            <select required>
+                                <option value="">Select range</option>
+                                <option value="<1L">Under ₹1 Lakh</option>
+                                <option value="1-5L">₹1 - ₹5 Lakh</option>
+                                <option value="5-20L">₹5 - ₹20 Lakh</option>
+                                <option value="20L+">₹20 Lakh+</option>
+                            </select>
+                            <label>Email</label>
+                            <input type="email" placeholder="marketing@brand.com" required>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Request Demo</button>
+                        </form>
+                    </div>
+
+                    <div id="success-msg" style="display: none; text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1.5rem;">✨</div>
+                        <h3 id="msg-text" style="margin-bottom: 2rem;"></h3>
+                        <a href="index.html" class="btn btn-outline">Back Home</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="padding-top: 0;">
+            <div class="container center">
+                <div class="reveal" style="text-align: center; color: var(--text-muted);">
+                    <p>For press and investors: <a href="mailto:hello@khikhi.com" style="color: var(--primary-color);">hello@khikhi.com</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function showForm(type) {
+            document.querySelectorAll('.form-section').forEach(f => f.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(type + '-form').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function handleSubmit(e, msg) {
+            e.preventDefault();
+            document.querySelectorAll('.form-section').forEach(f => f.style.display = 'none');
+            document.querySelector('.tab-btn').parentElement.style.display = 'none';
+            document.querySelector('h1').style.display = 'none';
+            const success = document.getElementById('success-msg');
+            success.style.display = 'block';
+            document.getElementById('msg-text').innerText = msg;
+        }
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>
